@@ -1,0 +1,31 @@
+version: '3'
+services:
+   swiggy:
+     image: nginx
+     ports:
+       - "8000:80"
+
+   zomato:
+     image: httpd
+     ports:
+       - "8001:80"
+
+    uber:
+      image: httpd
+      ports:
+        - "8002:80"
+
+
+{
+  "version": "3",
+  "services": {
+     "nagesh": {
+      "image": "nginx",
+        "ports": [
+            "8006:80"
+        ]
+     }
+  }
+}
+
+ 

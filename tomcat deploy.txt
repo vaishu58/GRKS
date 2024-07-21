@@ -41,9 +41,11 @@ startTomcat
 
 apt install maven
 git clone https://github.com/nagswe/Petclinic.git
+ll
 cd petclinic/
 ll
 mvn clean install package
+ll
 cd target/
 ll
 cp petclinic.war /opt/apache-tomcat-9.0.89/webapps/
