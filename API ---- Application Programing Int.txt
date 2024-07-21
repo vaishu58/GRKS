@@ -1,0 +1,86 @@
+API ---- Application Programing Interface
+
+Customer ----- Waiter ----- Kitchen
+Frontend ------- Backend ----- DB
+
+Backend -- API
+
+www.facebook.com
+
+userlogin
+password
+
+submit ------ www.facebook.com/login
+
+endpoint or route
+/login
+
+{
+
+validate entered username and password are correct
+if correct{logs him in}
+else{do not log him in, show an error message}
+
+}
+
+/search
+{
+
+connect to db,
+run select query with keyword provided by user
+get results and present them in frontend
+
+}
+
+day1
+Install Docker Desktop
+Install minikube 
+https://minikube.sigs.k8s.io/docs/start/
+https://docs.docker.com/desktop/install/windows-install/
+docker version
+open powershell copy the commands
+minikube status
+start docker desktop
+minikube status
+minikube start
+minikube status
+kubectl get all
+
+kubectl get nodes
+vi deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+kubectl delete pod  pod name
+kubectl get pods
+
+
+day2
+
+kubectl apply -f single-pod.yml
+kubectl get pods
+kubectl describe pods nginx
+kubectl get deployments
+kubectl get pods -o wide
+kubectl get replicaset
+minikube delete --profile minikube
+
+
