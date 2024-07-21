@@ -1,0 +1,33 @@
+Spin-up 3 servers in the AWS management console. 2 Servers are worker nodes and one server is manager node.
+ Install docker on all the 3 Servers.
+Initialise the docker swarm in the manager node.
+Open port 2377 in the Security group for all the Servers.
+Now Join both Network nodes o the manager node.
+docker node ls 
+https://hub.docker.com/repository/docker/bandank/flask-calculator/general?trk=article-ssr-frontend-pulse_little-text-block
+sudo docker service create --name flask-calculator --replicas 3 --publish 3000:3000 bandank/flask-calculator:latest
+We can check the service that is created in the manager node server.
+
+Open the port 3000 which is required to run the application.
+
+sudo -i
+yum install docker -y
+systemctl start docker.service
+systemctl status docker.service
+docker --version this steps in both manager and worker
+docker swarm init --advertise-addr manager pvtip
+join-token manager and copy in workernode
+docker node ls
+docker images
+docker ps -a
+docker pull bandank/flask-calculator
+docker service create --name flask-calculator --replicas 3 --p 3001:3000 bandank/flask-calculator:latest
+docker service ps flask-calculator 
+docker swarm join-token manager
+docker swarm join-token node
+docker swarm leave
+docker swarm leave --force
+docker swarm scale flask-calculator=7
+docker swarm rollback 
+
+

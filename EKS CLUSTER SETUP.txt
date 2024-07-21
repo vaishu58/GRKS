@@ -1,0 +1,73 @@
+EKS CLUSTER SETUP
+
+curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin
+kubectl version --short --client
+
+
+sudo apt install unzip
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+aws --version
+
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+eksctl version
+
+
+Create New Role using IAM service ( Select Usecase - ec2 )
+
+Add below permissions for the role
+
+IAM - fullaccess
+VPC - fullaccess
+EC2 - fullaccess
+CloudFomration - fullaccess
+Administrator - acces
+Enter Role Name (eksroleec2)
+
+Attach created role to EKS Management Host (Select EC2 => Click on Security => Modify IAM Role => attach IAM role we have created)
+
+eksctl create cluster --name nagesh-cluster4 --region ap-south-1 --node-type t2.medium  --zones ap-south-1a,ap-south-1b
+
+eksctl delete cluster --name nagesh-cluster4 --region ap-south-1
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  labels:
+    app: nginx
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: nginx
